@@ -1,5 +1,5 @@
 #!/bin/bash
-g++ src/* -o Debug/RatMaze
+g++ -std=c++11 src/* -o Debug/RatMaze
 echo "Run?"
 read RUN
 if [ $RUN == 'y' ]

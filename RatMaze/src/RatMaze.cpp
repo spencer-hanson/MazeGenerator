@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "MazeGen.h"
-#include <stdlib.h>
+#include "Maze.h"
 
 using namespace std;
 
@@ -16,9 +16,12 @@ using namespace std;
 
 int main() {
 
-	MazeGen maze (30);
-	maze.printMazeToFile();
+	MazeGen gen_maze (420);
+	gen_maze.printMazeToFile("maze.txt");
+	//gen_maze.printMaze();
 	
+	Maze maze ("maze.txt");
+	maze.printMaze();
 	return 0;
 }
 

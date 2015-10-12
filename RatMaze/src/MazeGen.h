@@ -5,6 +5,7 @@
  *      Author: m4trixsh4d0w
  */
 #include "MazeCell.h"
+#include <string>
 #ifndef MAZEGEN_H_
 #define MAZEGEN_H_
 
@@ -14,10 +15,11 @@ public:
 	MazeGen(int);
 	virtual ~MazeGen();
 	void printMaze();
-	void printMazeToFile();
+	void printMazeToFile(std::string);
+
 private:
 	int size;
-
+	char** getMaze();
 	struct NeighborCellGroup {
 		MazeCell::DIRECTION direction[4] = { MazeCell::NORTH, MazeCell::NORTH, MazeCell::NORTH, MazeCell::NORTH };
 		int count = 0;

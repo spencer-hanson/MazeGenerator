@@ -26,65 +26,8 @@ MazeCell::~MazeCell() {
 void MazeCell::setMazeCenterChar(char ch) {
 	this->center = ch;
 }
+
 char* MazeCell::printCell() {
-
-/*
-	char mid = '%';
-	if(visited) {
-		mid = '*';
-	} else {
-		mid = '&';
-	}
-
-	char top = '-';
-	if(northWall) {
-		top = '#';
-	}
-
-	char btm = '-';
-	if(southWall) {
-		btm = '#';
-	}
-
-	char lft = '|';
-	if(westWall) {
-		lft = '#';
-	}
-
-	char rht = '|';
-	if(eastWall) {
-		rht = '#';
-	}
-
-	/*
-
-	char mid = '%';
-		if(visited) {
-			mid = '*';
-		} else {
-			mid = 'M';
-		}
-
-		char top = 'T';
-		if(northWall) {
-			top = '#';
-		}
-
-		char btm = 'B';
-		if(southWall) {
-			btm = '#';
-		}
-
-		char lft = 'L';
-		if(westWall) {
-			lft = '#';
-		}
-
-		char rht = 'R';
-		if(eastWall) {
-			rht = '#';
-		}
-*/
 		char mid = '%';
 			if(visited) {
 				mid = center;
@@ -179,11 +122,3 @@ void MazeCell::setPosX(int pos_x) {
 void MazeCell::setPosY(int pos_y) {
 	this->pos_y = pos_y;
 }
-/*
- * bool getVisited();
-	int getPosX();
-	int getPosY();
-	void setVisited(bool);
-	void setPosX(int);
-	void setPosY(int);
- */

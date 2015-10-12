@@ -9,10 +9,9 @@
 #include "MazeGen.h"
 #include "MazeCell.h"
 #include <fstream>
+#include <string>
 
 MazeCell cells[1024][1024];
-
-
 
 MazeGen::MazeGen(int size) {
 	srand((unsigned)time(0));
@@ -45,8 +44,11 @@ MazeGen::MazeGen(int size) {
 		break;
 	}
 	genMaze(&cells[startx][starty], dir);
-	cells[startx][starty].setMazeCenterChar('%');
-	//genMaze(&cells[size-1][size-1], MazeCell::SOUTH);
+	//Create Start
+	cells[startx][0].setMazeCenterChar('S');
+	//Create End
+	cells[starty][size-1].setMazeCenterChar('E');
+	//cells[startx][starty].setMazeCenterChar('%');
 }
 
 MazeGen::~MazeGen() {
@@ -146,7 +148,6 @@ void MazeGen::genMaze(MazeCell* currentCell, MazeCell::DIRECTION fromDir) {
 			if(!(nextCell->getVisited())) {
 				currentCell->breakWall(currentDirection);
 				genMaze(nextCell, MazeCell::getOppositeWall(currentDirection));
-				//return; //REMOVE ME
 			}
 		}
 	}
@@ -156,107 +157,83 @@ void MazeGen::genMaze(MazeCell* currentCell, MazeCell::DIRECTION fromDir) {
 void MazeGen::printMaze() {
 	MazeCell* currentCell;
 	std::cout << "-----------" << std::endl;
-	char maze[size*3][size*3];
-	int offsetx = 0;
-	int offsety = 0;
-
-	for(int y = 0;y<size;y++) {
-		for(int x = 0;x<size;x++) {
-
-			if(x != 0) {
-				offsetx = 0;
-			} else {
-				offsetx = -1;
-			}
-
-			if(y != 0) {
-				offsety = 0;
-			} else {
-				offsety = -1;
-			}
-
-
-			currentCell = &cells[x][y];
-			char* cell = currentCell->printCell();
-			int k = 0;
-			for(int i = 0;i<3;i++) {
-				for(int j = 0;j<3;j++) {
-					if((i == 0 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 0) || (i == 2 && j == 2)) { //corners
-						maze[(x*3)+j + (offsetx*x)][(y*3)+i + (offsety*y)] = '#';
-					} else {
-						maze[(x*3)+j + (offsetx*x)][(y*3)+i + (offsety*y)] = cell[k];
-						k++;
-					}
-				}
-			}
-
-		}
-
-	}
+	char** maze;
+	maze = getMaze();
 
 	for(int y = 0;y<size*3;y++) {
 		for(int x = 0;x<size*3;x++) {
 			std::cout << maze[x][y];
 		}
-
 		std::cout << std::endl;
 	}
 }
 
-void MazeGen::printMazeToFile() {
-	
-	std::ofstream file;
-	
-	file.open ("maze.txt");
-	
-	MazeCell* currentCell;
-	char maze[size*3][size*3];
-	int offsetx = 0;
-	int offsety = 0;
+char** MazeGen::getMaze() {
+		MazeCell* currentCell;
 
-	for(int y = 0;y<size;y++) {
-		for(int x = 0;x<size;x++) {
+		char** maze = 0;
+		maze = new char*[size*3];
 
-			if(x != 0) {
-				offsetx = 0;
-			} else {
-				offsetx = -1;
-			}
+		int offsetx = 0;
+		int offsety = 0;
 
-			if(y != 0) {
-				offsety = 0;
-			} else {
-				offsety = -1;
-			}
+		for(int i = 0;i<size*3;i++) {
+			maze[i] = new char[size*3];
+		}
+
+		for(int y = 0;y<size;y++) {
+
+			for(int x = 0;x<size;x++) {
+
+				if(x != 0) {
+					offsetx = 0;
+				} else {
+					offsetx = -1;
+				}
+
+				if(y != 0) {
+					offsety = 0;
+				} else {
+					offsety = -1;
+				}
 
 
-			currentCell = &cells[x][y];
-			char* cell = currentCell->printCell();
-			int k = 0;
-			for(int i = 0;i<3;i++) {
-				for(int j = 0;j<3;j++) {
-					if((i == 0 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 0) || (i == 2 && j == 2)) { //corners
-						maze[(x*3)+j + (offsetx*x)][(y*3)+i + (offsety*y)] = '#';
-					} else {
-						maze[(x*3)+j + (offsetx*x)][(y*3)+i + (offsety*y)] = cell[k];
-						k++;
+				currentCell = &cells[x][y];
+				char* cell = currentCell->printCell();
+				int k = 0;
+				for(int i = 0;i<3;i++) {
+					for(int j = 0;j<3;j++) {
+						if((i == 0 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 0) || (i == 2 && j == 2)) { //corners
+							maze[(x*3)+j + (offsetx*x)][(y*3)+i + (offsety*y)] = '#';
+						} else {
+							maze[(x*3)+j + (offsetx*x)][(y*3)+i + (offsety*y)] = cell[k];
+							k++;
+						}
 					}
 				}
+
 			}
 
 		}
+		return maze;
+}
 
-	}
+void MazeGen::printMazeToFile(std::string filename) {
+
+	std::ofstream file;
+	file.open (filename);
+	char** maze;
+	maze = getMaze();
 
 	for(int y = 0;y<size*3;y++) {
-		for(int x = 0;x<size*3;x++) {
-			file << maze[x][y];
-		}
+			for(int x = 0;x<size*3;x++) {
+				file << maze[x][y];
+			}
 
-		file << "\n";
-	}
-	
-	file.close();
+			file << "\n";
+		}
+file.close();
+
 }
 
 
