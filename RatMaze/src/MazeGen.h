@@ -27,7 +27,7 @@ private:
 
 	int* getRandom(int);
 	NeighborCellGroup getNeighborCells(MazeCell *);
-	void genMaze(MazeCell *, MazeCell::DIRECTION);
+	void genMaze(MazeCell*, MazeCell::DIRECTION);
 
 };
 

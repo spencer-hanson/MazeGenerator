@@ -6,6 +6,7 @@
  */
 
 #include "MazeCell.h"
+#include "MazeConstants.h"
 
 MazeCell::MazeCell() {
 	pos_y = -1;
@@ -15,47 +16,54 @@ MazeCell::MazeCell() {
 	northWall = true;
 	eastWall = true;
 	westWall = true;
-	center = '*';
+	center = MazeConstant::PATH_CHAR;
 }
 
 MazeCell::~MazeCell() {
 
 }
 
-
 void MazeCell::setMazeCenterChar(char ch) {
 	this->center = ch;
 }
 
 char* MazeCell::printCell() {
-		char mid = '%';
-			if(visited) {
-				mid = center;
-			} else {
-				mid = 'M';
-			}
+	char mid = MazeConstant::PATH_CHAR;
+	if (visited) {
+		mid = center;
+	} else {
+		mid = 'M'; //only if cell hasn't been visited, every cell should have been visited
+	}
 
-			char top = '*';
-			if(northWall) {
-				top = '#';
-			}
+	char top = MazeConstant::PATH_CHAR;
+	if (northWall) {
+		top = MazeConstant::WALL_CHAR;
+	}
 
-			char btm = '*';
-			if(southWall) {
-				btm = '#';
-			}
+	char btm = MazeConstant::PATH_CHAR;
+	if (southWall) {
+		btm = MazeConstant::WALL_CHAR;
+	}
 
-			char lft = '*';
-			if(westWall) {
-				lft = '#';
-			}
+	char lft = MazeConstant::PATH_CHAR;
+	if (westWall) {
+		lft = MazeConstant::WALL_CHAR;
+	}
 
-			char rht = '*';
-			if(eastWall) {
-				rht = '#';
-			}
+	char rht = MazeConstant::PATH_CHAR;
+	if (eastWall) {
+		rht = MazeConstant::WALL_CHAR;
+	}
 
-	char cell[5] = {top, lft, mid, rht, btm };
+	char crn = MazeConstant::WALL_CHAR; //Corner
+
+	/*
+	 * {crn}{top}{crn}
+	 * {lft}{mid}{rht}
+	 * {crn}{btm}{crn}
+	 */
+
+	char cell[9] = {crn, top, crn, lft, mid, rht, crn, btm, crn };
 	char *ptr = cell;
 
 	return ptr;
@@ -63,7 +71,7 @@ char* MazeCell::printCell() {
 }
 
 MazeCell::DIRECTION MazeCell::getOppositeWall(MazeCell::DIRECTION dir) {
-	switch(dir) {
+	switch (dir) {
 	case NORTH:
 		return SOUTH;
 		break;
@@ -82,7 +90,7 @@ MazeCell::DIRECTION MazeCell::getOppositeWall(MazeCell::DIRECTION dir) {
 }
 
 void MazeCell::breakWall(DIRECTION direction) {
-	switch(direction) {
+	switch (direction) {
 	case NORTH:
 		northWall = false;
 		break;
@@ -97,7 +105,6 @@ void MazeCell::breakWall(DIRECTION direction) {
 		break;
 	}
 }
-
 
 bool MazeCell::getVisited() {
 	return visited;

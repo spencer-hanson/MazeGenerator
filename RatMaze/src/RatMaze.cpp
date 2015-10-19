@@ -16,8 +16,8 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-	MazeGen gen_maze (stoi(argv[1]));
-//	gen_maze.printMaze();
+	MazeGen gen_maze (2);
+	gen_maze.printMaze();
 //	gen_maze.printMazeToFile("maze.txt");
 
 	//gen_maze.printMaze();

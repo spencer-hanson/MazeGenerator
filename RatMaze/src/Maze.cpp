@@ -5,15 +5,19 @@
  *      Author: m4trixsh4d0w
  */
 #include "Maze.h"
-#include <fstream>
+#include "MazeConstants.h"
+
 #include <string>
 #include <iostream>
+#include <fstream>
+using namespace std;
 
-Maze::Maze(std::string filename) {
+Maze::Maze(string filename) {
 	int lineY = 0;
 	
-	std::string line = "";
-	std::ifstream file(filename);
+	string line = "";
+	ifstream file;
+	file.open(filename);
 	
 	int start_x = -1;
 	int start_y = -1;
@@ -25,10 +29,10 @@ Maze::Maze(std::string filename) {
 			getline(file, line);
 			for(int i = 0;i<line.length();i++) {
 				maze_array[lineY][i] = line.at(i);
-				if(line.at(i) == 'S') {
+				if(line.at(i) == MazeConstant::START_CHAR) {
 					start_x = i;
 					start_y = lineY;
-				} else if(line.at(i) == 'E') {
+				} else if(line.at(i) == MazeConstant::END_CHAR) {
 					end_x = i;
 					end_y = lineY;
 				}
