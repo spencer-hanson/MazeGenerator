@@ -11,10 +11,24 @@
 #include <fstream>
 #include <string>
 
-MazeCell cells[1024][1024];
+const int MAX_CELLS = 1024;
+MazeCell cells[MAX_CELLS][MAX_CELLS];
 
 MazeGen::MazeGen(int size) {
 	srand((unsigned)time(0));
+
+	if(size < 4) {//Minimum size is 4x4
+		size = 4;
+	}
+
+	if(size*9 > MAX_CELLS-1) {//Max cell limiter
+		size = (MAX_CELLS/9)-1;
+	}
+
+	if(size % 2 != 0) { //Maze generation works best if maze isan even number
+		size++;
+	}
+
 	this->size = size;
 	MazeCell *currentCell;
 

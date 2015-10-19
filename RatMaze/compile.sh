@@ -1,8 +1,8 @@
 #!/bin/bash
-g++ -std=c++11 src/* -o Debug/RatMaze
+g++ -g -std=c++11 src/* -o Debug/RatMaze
 echo "Run?"
 read RUN
 if [ $RUN == 'y' ]
 then
-	./Debug/RatMaze
+	./Debug/RatMaze $1
 fi

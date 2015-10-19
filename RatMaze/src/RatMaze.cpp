@@ -14,14 +14,16 @@ using namespace std;
 
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
-	MazeGen gen_maze (420);
-	gen_maze.printMazeToFile("maze.txt");
+	MazeGen gen_maze (stoi(argv[1]));
+//	gen_maze.printMaze();
+//	gen_maze.printMazeToFile("maze.txt");
+
 	//gen_maze.printMaze();
 	
-	Maze maze ("maze.txt");
-	maze.printMaze();
+//	Maze maze ("maze.txt");
+//	maze.printMaze();
 	return 0;
 }
 

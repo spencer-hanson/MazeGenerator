@@ -46,6 +46,7 @@ Maze::Maze(std::string filename) {
 }
 
 void Maze::printMaze() {
+
 	for(int i = 0;i<size_y;i++) {
 		std::cout << maze_array[i] << std::endl;
 	}
