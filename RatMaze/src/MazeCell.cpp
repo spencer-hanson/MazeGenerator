@@ -7,6 +7,7 @@
 
 #include "MazeCell.h"
 #include "MazeConstants.h"
+#include <iostream>
 
 MazeCell::MazeCell() {
 	pos_y = -1;
@@ -103,6 +104,16 @@ void MazeCell::breakWall(DIRECTION direction) {
 	case WEST:
 		westWall = false;
 		break;
+	}
+}
+
+void MazeCell::printInfo(bool tab) {
+	if(tab) {
+		std::cout << "\tPos: (" << pos_x << ", " << pos_y << ")" << std::endl;
+		std::cout << "\tVisited: " << visited << std::endl;
+	} else {
+		std::cout << "Pos: (" << pos_x << ", " << pos_y << ")" << std::endl;
+		std::cout << "Visited: " << visited << std::endl;
 	}
 }
 

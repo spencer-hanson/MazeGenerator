@@ -11,9 +11,9 @@
 #include "MazeConstants.h"
 #include <fstream>
 #include <string>
+#include <vector>
 
 const int MAX_CELLS = MazeConstant::MAX_CELLS;
-MazeCell cells[MAX_CELLS/3+1][MAX_CELLS/3+1]; //Only need 1/3 as many cells, each cell is 3x3
 
 MazeGen::MazeGen(int size) {
 	srand((unsigned)time(0));
@@ -31,19 +31,23 @@ MazeGen::MazeGen(int size) {
 	}
 
 	this->size = size;
+	for(int i = 0;i<size;i++) {
+		this->cells.push_back(std::vector<MazeCell>(size, MazeCell()));
+	}
+
 
 	//Initialize all the cells in the array with a cell pointer
 	MazeCell *currentCell;
 	for(int x = 0;x<size;x++) {
 		for(int y = 0;y<size;y++) {
-			currentCell = &cells[x][y];
+			currentCell = &cells.at(x).at(y);
 			currentCell->setPosX(x);
 			currentCell->setPosY(y);
 		}
 	}
 
-	int startx = rand() % size - 1; //random start x val
-	int starty = rand() % size - 1; //random start y val
+	int startx = rand() % size; //random start x val
+	int starty = rand() % size; //random start y val
 
 	MazeCell::DIRECTION dir;
 
@@ -59,6 +63,9 @@ MazeGen::MazeGen(int size) {
 		break;
 	case 3:
 		dir = MazeCell::NORTH;
+		break;
+	default:
+		std::cout << "Error :(" << std::endl;
 		break;
 	}
 	genMaze(&cells[startx][starty], dir); //Generate maze with center 'startx','starty' from direction 'dir'
@@ -84,15 +91,21 @@ MazeGen::NeighborCellGroup MazeGen::getNeighborCells(MazeCell* cell) {
 
 	if(cell->getPosX() < 1) { //cell is on right edge of maze
 		west = false;
-	} else if(cell->getPosX() > size-2) { //cell is on left edge of maze
+	}
+
+	if(cell->getPosX() >= size-1) { //cell is on left edge of maze
 		east = false;
 	}
 
 	if(cell->getPosY() < 1) { //top row cell of maze
 		north = false;
-	} else if(cell->getPosY() > size-2) { //bottom row cell of maze
+	}
+
+	if(cell->getPosY() >= size-1) { //bottom row cell of maze
 		south = false;
 	}
+
+
 
 	//Add directions to list, increment after each addition
 	if(east) { neighbors.direction[count++] = MazeCell::EAST; }
@@ -118,13 +131,11 @@ int* MazeGen::getRandom(int size) { //Populate array with random numbers 0-<size
 	while(count < size) { //keep going as long as there are numbers to be generated
 		num = rand() % size;
 		inArray = false;
-		
 		for(int i  = 0;i<size;i++) { //Check if generated number is in array
 				if(num == array[i]) {
 					inArray = true;
 				}
 			}
-			
 			if(!inArray) {
 				*(array + count) = num; //set the current array index to the generated number
 				count++; //increase the array index counter
@@ -145,32 +156,46 @@ void MazeGen::genMaze(MazeCell* currentCell, MazeCell::DIRECTION fromDir) {
 	MazeCell::DIRECTION currentDirection; //Direction to iterate into
 	MazeCell* nextCell; //pointer to the next cell object, randomly chosen
 
+	#ifdef DEBUG
+	currentCell->printInfo(false);
+	std::cout << "Count: " << neighbors.count << std::endl;
+	#endif
+
 	for(int i = 0;i<neighbors.count;i++) {
 		currentDirection = neighbors.direction[order[i]];
 		if(currentDirection != fromDir) {
 			switch(currentDirection) {
 			case MazeCell::NORTH:
-				nextCell = &cells[currentCell->getPosX()][currentCell->getPosY()-1];
+				nextCell = &cells.at(currentCell->getPosX()).at(currentCell->getPosY()-1);
 				break;
 			case MazeCell::SOUTH:
-				nextCell = &cells[currentCell->getPosX()][currentCell->getPosY()+1];
+				nextCell = &cells.at(currentCell->getPosX()).at(currentCell->getPosY()+1);
 				break;
 			case MazeCell::EAST:
-				nextCell = &cells[currentCell->getPosX()+1][currentCell->getPosY()];
+				nextCell = &cells.at(currentCell->getPosX()+1).at(currentCell->getPosY());
 				break;
 			case MazeCell::WEST:
-				nextCell = &cells[currentCell->getPosX()-1][currentCell->getPosY()];
+				nextCell = &cells.at(currentCell->getPosX()-1).at(currentCell->getPosY());
+				break;
+			default:
+				std::cout << "We have a problemo" << std::endl;
 				break;
 			}
 
+			#ifdef DEBUG
+				std::cout << "\t-NextCell-" << std::endl;
+				nextCell->printInfo(true);
+				std::cout << "\tCount: " << neighbors.count << std::endl;
+				std::cout << "\t=NextCell=" << std::endl;
+			#endif
+
 			if(!(nextCell->getVisited())) {
-				currentCell->breakWall(currentDirection);
+				currentCell->breakWall(currentDirection); //break the entrance to the next cell
 				genMaze(nextCell, MazeCell::getOppositeWall(currentDirection));
 			}
 		}
 	}
 }
-
 
 void MazeGen::printMaze() {
 	char** maze;
@@ -180,7 +205,7 @@ void MazeGen::printMaze() {
 		for(int x = 0;x<size*3;x++) {
 			std::cout << maze[x][y];
 		}
-		std::cout << std::endl;
+		std::cout << "\n";
 	}
 }
 
@@ -214,7 +239,7 @@ char** MazeGen::getMaze() { //put 3x3 maze cell object into 2d array
 				}
 
 
-				currentCell = &cells[x][y];
+				currentCell = &cells.at(x).at(y);
 				char* cell = currentCell->printCell();
 				int k = 0;
 				//Loop through cell chars 3x3
@@ -253,7 +278,6 @@ void MazeGen::printMazeToFile(std::string filename) {
 			file << "\n";
 		}
 file.close();
-
 }
 
 

@@ -1,6 +1,7 @@
 #ifndef MAZECONSTANTS_H_
 #define MAZECONSTANTS_H_
 
+//#define DEBUG
 namespace MazeConstant {
 	const char WALL_CHAR = '#';
 	const char PATH_CHAR = '*';

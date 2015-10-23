@@ -19,7 +19,7 @@ class MazeCell {
 	bool eastWall;
 	bool westWall;
 public:
-	enum DIRECTION { NORTH, SOUTH, EAST, WEST };
+	enum DIRECTION { NORTH, SOUTH, EAST, WEST, NONE };
 	void setMazeCenterChar(char);
 	void breakWall(DIRECTION);
 	char* printCell();
@@ -30,6 +30,7 @@ public:
 	void setVisited(bool);
 	void setPosX(int);
 	void setPosY(int);
+	void printInfo(bool);
 	MazeCell();
 	virtual ~MazeCell();
 };
