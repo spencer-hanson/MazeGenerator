@@ -1,7 +1,7 @@
 # GeneticRatMaze
-###There are 3 main parts to the Genetic Maze:
-##MazeGen
-..*Generates a maze given size of maze, can save to file and/or print to console
+##There are 3 main parts to the Genetic Maze:
+### 1.MazeGen
+  *Generates a maze given size of maze, can save to file and/or print to console
 ....*Written in C++
 ..*MazeGUI
 ....*Displays a window of the maze, read in from a generated maze file
