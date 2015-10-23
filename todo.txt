@@ -4,3 +4,4 @@ X Clean up MazeGUI
 - Integrate gradle or make for all projects
 - Update README
 - Better todo list
+- build.sh

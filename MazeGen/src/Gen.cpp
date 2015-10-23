@@ -15,7 +15,7 @@ using namespace std;
 
 void usage(char *name) {
 	cout << "Incorrect Usage!" << endl;
-	cout << "Usage: " << name << "<size> [-o <output.txt>] [-p]" << endl;
+	cout << "Usage: " << name << " <size> [-o <output.txt>] [-p]" << endl;
 	cout << "Examples: \n" << name << " 8 -o maze.txt -p" << endl;
 	cout << "This will generate a 8x8 maze, store it in maze.txt and print it out" << endl;
 	cout << name << " 16" << endl;

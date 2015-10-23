@@ -56,7 +56,7 @@ class MazeGui extends JFrame implements MouseListener {
 	public static void usage() {
 		String name = "java -jar MazeGUI.jar";
 		println("Invalid usage!");
-		println("Usage: " + name + " <GenMaze Executable> [Maze Size] [Maze Cell Size]");
+		println("Usage: " + name + " <GenMaze Executable> <Maze Size> <Maze Cell Size>");
 	}
 
 
