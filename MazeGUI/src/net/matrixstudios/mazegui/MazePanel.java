@@ -11,6 +11,11 @@ public class MazePanel extends JPanel {
 	private ArrayList<char[]> maze;
 	private int cellSize = 1;
 	
+	public MazePanel(ArrayList<char[]> maze, int cellSize) {
+		this(maze);
+		this.cellSize = cellSize;
+	}
+
 	public MazePanel(ArrayList<char[]> maze) {
 		super();
 		this.maze = maze;

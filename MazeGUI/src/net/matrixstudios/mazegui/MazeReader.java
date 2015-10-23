@@ -30,7 +30,7 @@ public class MazeReader {
 		System.out.println("Reading file...");
 		reader = new BufferedReader(new FileReader(file));
 		lines = new ArrayList<char[]>(1024);
-		readMaze();		
+		readMaze();
 	}
 	
 	public ArrayList<char[]> getMaze() {
@@ -41,7 +41,7 @@ public class MazeReader {
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			lines = new ArrayList<char[]>(1024);
-			readMaze();	
+			readMaze();
 			panel.setMaze(getMaze());
 		} catch(IOException e) {
 			e.printStackTrace();

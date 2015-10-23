@@ -1,6 +1,6 @@
 X Add args for maze generation
 - work on actual genetic algorithm for solving the maze
-- Clean up MazeGUI
+X Clean up MazeGUI
 - Integrate gradle or make for all projects
 - Update README
 - Better todo list

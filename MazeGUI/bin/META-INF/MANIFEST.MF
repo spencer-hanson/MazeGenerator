@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Created-By: Spencer Hanson
+Main-Class: net.matrixstudios.mazegui.MazeGui
