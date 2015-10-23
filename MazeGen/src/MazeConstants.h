@@ -1,3 +1,7 @@
+/*
+ * MazeConstants.h
+ * Author: Spencer Hanson
+ */
 #ifndef MAZECONSTANTS_H_
 #define MAZECONSTANTS_H_
 

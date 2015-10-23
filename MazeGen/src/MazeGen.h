@@ -1,8 +1,6 @@
 /*
  * MazeGen.h
- *
- *  Created on: Sep 6, 2015
- *      Author: m4trixsh4d0w
+ *      Author: Spencer Hanson
  */
 #include "MazeCell.h"
 #include <string>
