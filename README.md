@@ -1,5 +1,5 @@
 # GeneticRatMaze
-<img src="media/MazeGUI.gif" width="1000" height="686" />
+<img src="media/MazeGUI.gif" />
 <br />
 <hr />
 
