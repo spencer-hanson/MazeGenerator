@@ -1,5 +1,7 @@
 # GeneticRatMaze
-
+<img src="media/MazeGUI.gif" width="343" height="500" />
+<br />
+<hr />
 
 ##There are 3 programs to the Genetic Maze Project:
 
@@ -21,6 +23,7 @@
 ###Compiling Guide:
  * simple 'make' command, binary will be created in bin
  * use 'make clean' to clean out all binaries and compiled files
+
 ---
 
 ###Run Guide:
