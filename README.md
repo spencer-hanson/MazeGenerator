@@ -19,29 +19,14 @@
 ---
 
 ###Compiling Guide:
-
-####MazeGen
-* For Linux/OSX:
-  * run compile.sh in the MazeGen directory, will create an executable in 'Debug'
-* For Windows:
-  * No auto compile script yet! Take a look at compile.sh for guidance if you want to anyways!
-
-####MazeGUI
-* For Linux/OSX:
-  * run compile.sh in the MazeGUI directory, will create jarfile in current directory, 'MazeGUI.jar'
-* For Windows:
-  * No auto compile script yet! Take a look at compile.sh for guidance if you want to anyways!
-
-####MazeSolve
-* In development!
-
+ * simple 'make' command, binary will be created in bin
+ * use 'make clean' to clean out all binaries and compiled files
 ---
 
 ###Run Guide:
 
 ####MazeGen - A program written to generate mazes of specified sizes
-* For Linux/OSX, default executable name is 'MazeGen'
-* For Windows, default executable name is 'MazeGen.exe'
+* Default executable name is 'MazeGen'
 * Used like so: <executable> <size of maze> [-o (optional output flag) <output filename>] [-p (optional force print to console)]
 * Run <executable> to see examples
 
