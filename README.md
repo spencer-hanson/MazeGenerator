@@ -1,4 +1,4 @@
-# GeneticRatMaze
+# GeneticMaze
 <img src="media/MazeGUI.gif" />
 <br />
 <hr />
