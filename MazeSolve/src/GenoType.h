@@ -1,3 +1,8 @@
+/*
+ * GenoType.h
+ *
+ *  Author: Spencer Hanson
+ */
 #include <string>
 
 #ifndef GENOTYPE_H_

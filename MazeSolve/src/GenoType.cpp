@@ -1,4 +1,8 @@
-
+/*
+ * Genotype.cpp
+ *
+ *  Author: Spencer Hanson
+ */
 #include "GenoType.h"
 #include <iostream>
 #include <string>

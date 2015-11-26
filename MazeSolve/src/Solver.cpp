@@ -1,3 +1,8 @@
+/*
+ * Solver.cpp
+ *
+ *  Author: Spencer Hanson
+ */
 #include <iostream>
 #include "Maze.h"
 #include "Mouse.h"
