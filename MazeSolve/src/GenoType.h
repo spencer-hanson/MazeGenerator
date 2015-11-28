@@ -3,10 +3,10 @@
  *
  *  Author: Spencer Hanson
  */
-#include <string>
-
 #ifndef GENOTYPE_H_
 #define GENOTYPE_H_
+#include <string>
+
 class GenoType {
 //private:
 	

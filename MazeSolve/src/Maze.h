@@ -3,10 +3,10 @@
  *
  * Author: Spencer Hanson
  */
-#include <iostream>
-#include <string>
 #ifndef MAZE_H_
 #define MAZE_H_
+
+#include <string>
 
 class Maze {
 private:
