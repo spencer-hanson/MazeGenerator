@@ -8,8 +8,9 @@
 #ifndef GENOTYPE_H_
 #define GENOTYPE_H_
 class GenoType {
+//private:
 	
-	public:
+public:
 	std::string getAlgorithm();	
 	GenoType();
 	~GenoType();

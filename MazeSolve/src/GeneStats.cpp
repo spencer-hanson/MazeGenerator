@@ -3,4 +3,12 @@
  *
  *  Author: Spencer Hanson
  */
- #include "GeneStats.h"
+#include "GeneStats.h"
+
+GeneStats::GeneStats() {
+
+}
+
+GeneStats::~GeneStats() {
+
+}

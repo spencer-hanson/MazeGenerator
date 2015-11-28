@@ -3,5 +3,12 @@
  *
  *  Author: Spencer Hanson
  */
- #include "Mutator.h"
- 
+#include "Mutator.h"
+
+Mutator::Mutator() {
+
+}
+
+Mutator::~Mutator() {
+
+}

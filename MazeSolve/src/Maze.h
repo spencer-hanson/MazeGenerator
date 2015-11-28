@@ -7,6 +7,7 @@
 #include <string>
 #ifndef MAZE_H_
 #define MAZE_H_
+
 class Maze {
 private:
 	char maze_array[1024][1024];
@@ -18,11 +19,8 @@ private:
 
 public:
 	Maze(std::string);
-	virtual ~Maze();
+	~Maze();
 	void printMaze();
 };
-
-
-
 
 #endif /* MAZE_H_ */
