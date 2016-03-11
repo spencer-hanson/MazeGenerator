@@ -22,11 +22,11 @@ void usage(char *name) {
 	cout << "This will generate a 16x16 maze, and print it out to the screen" << endl;
 }
 
-int main(int argc, char *argv[]) {
 
+int main(int argc, char *argv[]) {
 	bool printOut = true;
 	bool writeToFile = false;
-	string fileName = "maze.txt";
+	string fileName ("maze.txt");
 
 	if(argc < 2) {
 		usage(argv[0]);

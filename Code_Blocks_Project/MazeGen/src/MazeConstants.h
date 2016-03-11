@@ -11,7 +11,7 @@ namespace MazeConstant {
 	const char PATH_CHAR = '*';
 	const char START_CHAR = 'S';
 	const char END_CHAR = 'E';
-	const int MAX_CELLS = 1024;
+	const int MAX_CELLS = 2048;
 }
 
 #endif /* MAZECONSTANTS_H_ */

@@ -14,7 +14,8 @@
 const int MAX_CELLS = MazeConstant::MAX_CELLS;
 
 MazeGen::MazeGen(int size) {
-	srand((unsigned)time(0));
+
+	srand((unsigned)time(0)); //set up random
 
 	if(size < 4) { //Minimum size is 4x4
 		size = 4;
@@ -36,6 +37,7 @@ MazeGen::MazeGen(int size) {
 
 	//Initialize all the cells in the array with a cell pointer
 	MazeCell *currentCell;
+
 	for(int x = 0;x<size;x++) {
 		for(int y = 0;y<size;y++) {
 			currentCell = &cells.at(x).at(y);
@@ -67,11 +69,11 @@ MazeGen::MazeGen(int size) {
 		break;
 	}
 	genMaze(&cells[startx][starty], dir); //Generate maze with center 'startx','starty' from direction 'dir'
+
 	//Create Start
 	cells[startx][0].setMazeCenterChar(MazeConstant::START_CHAR);
 	//Create End
 	cells[starty][size-1].setMazeCenterChar(MazeConstant::END_CHAR);
-	//cells[startx][starty].setMazeCenterChar('%'); //Set the starting cell center to '%'
 }
 
 MazeGen::~MazeGen() { }
@@ -106,47 +108,38 @@ MazeGen::NeighborCellGroup MazeGen::getNeighborCells(MazeCell* cell) {
 
 
 	//Add directions to list, increment after each addition
-	if(east) { neighbors.direction[count++] = MazeCell::EAST; }
-	if(west) { neighbors.direction[count++] = MazeCell::WEST; }
+	if(east) { neighbors.direction[count++] = MazeCell::EAST;  }
+	if(west) { neighbors.direction[count++] = MazeCell::WEST;  }
 	if(south){ neighbors.direction[count++] = MazeCell::SOUTH; }
 	if(north){ neighbors.direction[count++] = MazeCell::NORTH; }
 	neighbors.count = count;
 
 	return neighbors;
 }
-//TODO Make this more efficient (Okay for now, but wouldn't work too well with large numbers)
-int* MazeGen::getRandom(int size) { //Populate array with random numbers 0-<size>, with no repeats
 
-	int* array = new int[size];
-	int count = 0;
-	int num;
-	bool inArray = false;
+ std::vector<int> MazeGen::getRandom(int num_size) { //Populate array with random numbers 0-<size-1>, with no repeats
+        //int* array = new int[size];
+        std::vector<int> array (num_size, -1);
 
-	for(int i = 0;i<size;i++) {
-		array[i] = -1;
-	}
+        int tmp = num_size;
+        int tmp2 = 0;
 
-	while(count < size) { //keep going as long as there are numbers to be generated
-		num = rand() % size;
-		inArray = false;
-		for(int i  = 0;i<size;i++) { //Check if generated number is in array
-				if(num == array[i]) {
-					inArray = true;
-				}
-			}
-			if(!inArray) {
-				*(array + count) = num; //set the current array index to the generated number
-				count++; //increase the array index counter
-		}
-	}
+        while(tmp > 0) {
+            tmp2 = rand() % num_size;
+            if(array[tmp2] == -1) {
+                array[tmp2] = tmp--;
+                array[tmp2]--;
+            }
+        }
 
-	return array;
-}
+        return array;
+    }
 
 void MazeGen::genMaze(MazeCell* currentCell, MazeCell::DIRECTION fromDir) {
 
+
 	NeighborCellGroup neighbors = getNeighborCells(currentCell); //Group of cells
-	int* order = getRandom(neighbors.count); //order that you visit cells
+	std::vector<int> order = getRandom(neighbors.count); //order that you visit cells
 
 	currentCell->breakWall(fromDir); //break the wall between where you started and where you are from
 	currentCell->setVisited(true); //don't visit this cell again
@@ -196,7 +189,7 @@ void MazeGen::genMaze(MazeCell* currentCell, MazeCell::DIRECTION fromDir) {
 }
 
 void MazeGen::printMaze() {
-	char** maze;
+	std::vector<std::vector<char>> maze;
 	maze = getMaze();
 
 	for(int y = 0;y<size*3;y++) {
@@ -207,23 +200,25 @@ void MazeGen::printMaze() {
 	}
 }
 
-char** MazeGen::getMaze() { //put 3x3 maze cell object into 2d array
+std::vector<std::vector<char>> MazeGen::getMaze() { //put 3x3 maze cell object into 2d array
 		MazeCell* currentCell;
 
-		char** maze = 0;
-		maze = new char*[size*3];
+		std::vector<std::vector<char>> maze (size*3, std::vector<char>(size*3));
+//		maze = new char*[size*3];
 
 		int offsetx = 0;
 		int offsety = 0;
-
-		for(int i = 0;i<size*3;i++) {
+/*
+		for(int i = 0;i<size*3;i++) { //initialize array
 			maze[i] = new char[size*3];
 		}
+*/
+		for(int y = 0;y<size;y++) { //through all 'y'
 
-		for(int y = 0;y<size;y++) {
+			for(int x = 0;x<size;x++) { //through all 'x'
 
-			for(int x = 0;x<size;x++) {
 
+                //Calculate offset, sets 0th element back, otherwise as placed
 				if(x != 0) {
 					offsetx = 0;
 				} else {
@@ -243,14 +238,15 @@ char** MazeGen::getMaze() { //put 3x3 maze cell object into 2d array
 				//Loop through cell chars 3x3
 				for(int i = 0;i<3;i++) {
 					for(int j = 0;j<3;j++) {
-						int index_x = (x*3)+j + (offsetx*x);
-						/*Cell at index*3 (to account for cell size being 3x larger)
+						/*
+                        * Cell at index*3 (to account for cell size being 3x larger)
 						* plus j (the x index of the current cell)
 						* plus the offset * x (to account for the cell wall overlap)
 						*/
-						int index_y = (y*3)+i + (offsety*y);
+						int index_x = (x*3) + j + (offsetx*x);
+						int index_y = (y*3) + i + (offsety*y);
 
-						maze[index_x][index_y] = cell[k];
+						maze[index_x][index_y] = cell[k]; //set char array equal to character in maze
 						k++;
 					}
 				}
@@ -265,17 +261,17 @@ void MazeGen::printMazeToFile(std::string filename) {
 
 	std::ofstream file;
 	file.open(filename);
-	char** maze;
+	std::vector<std::vector<char>> maze;
 	maze = getMaze();
 
-	for(int y = 0;y<size*3;y++) { //MazeCell is 3x3 so 3 times as large
+	for(int y = 0;y<size*3;y++) { //Maze cell is 3x3 so entire maze is 3 times as large
 			for(int x = 0;x<size*3;x++) {
 				file << maze[x][y];
 			}
 
 			file << "\n";
 		}
-file.close();
+    file.close();
 }
 
 
