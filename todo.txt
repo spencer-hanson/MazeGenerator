@@ -4,4 +4,4 @@ X Clean up MazeGUI
 X Integrate gradle or make for all projects
 - Update README
 - Better todo list
-- shields.io ?
+- shields.io?
