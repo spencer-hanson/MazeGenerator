@@ -1,9 +1,9 @@
-# GeneticMaze
+# Maze Generator
 <img src="media/MazeGUI.gif" />
 <br />
 <hr />
 
-##There are 3 programs to the Genetic Maze Project:
+##There are 2 parts to the Maze Generation Project:
 
 ####1. MazeGen
 * Generates a maze given size of maze, can save to file and/or print to console
@@ -14,9 +14,6 @@
 * Reads from local 'maze.txt'
 * Takes args on the path to the MazeGen executable, the size of maze to generate, and size of the cells
 * The size of the cells determines the "resolution" of each wall/pathway, in pixels
-
-####3. MazeSolve
-* In development!
 
 ---
 
@@ -37,8 +34,3 @@
 * Default jar-file name is 'MazeGUI.jar'
 * Used like so: java -jar <jarfile> <GenMaze executable> <Maze Size> <Maze Cell Size>
 * Click on the Generated Maze to re-generate it!
-
-####MazeSolve
-* In development!
-
-
